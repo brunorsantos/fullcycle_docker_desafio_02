@@ -10,7 +10,15 @@ const config = {
 const mysql = require('mysql')
 const connection = mysql.createConnection(config)
 
-const sql = `INSERT INTO people(name) values('Bruno')`
+let sql = "CREATE TABLE people (name VARCHAR(255))";
+connection.query(sql, function (err, result) {
+    if (err) {
+        console.log("Table already exists")
+    } 
+    console.log("Table created")
+})
+
+sql = `INSERT INTO people(name) values('Bruno')`
 const sqlSelect = `SELECT name from people`
 connection.query(sql)
 connection.end()

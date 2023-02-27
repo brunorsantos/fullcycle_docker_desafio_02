@@ -9,20 +9,18 @@ services:
     entrypoint: dockerize -wait tcp://db:3306 -timeout 50s node index.js
     networks: 
       - node-network
-    volumes: 
-      - ./node:/usr/src/app
     tty: true
     depends_on: 
        - db
 
   db:
     image: mysql:5.7
-    command: --innodb-use-native-aio=0
     container_name: db
     restart: always
     tty: true
     volumes: 
       - ./mysql:/var/lib/mysql:rw
+    # Comigo nao funcionou sem o user, tentei remover a imagem ou utilizar uma versao mais recente
     user: mysql
     ports: 
       - "3306:3306"
